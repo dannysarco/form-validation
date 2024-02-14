@@ -2,15 +2,18 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "http://localhost:8080",
-    specPattern: "cypress/integration/**/*.cy.{js,jsx,ts,tsx}",
+    baseUrl: "http://localhost:8000",
+    sspecPattern: [
+      "cypress/integration/**/*.{js,jsx,ts,tsx}",
+      "cypress/e2e/**/*.{js,jsx,ts,tsx}",
+    ],
     screenshotsFolder: "cypress/screenshots",
     videosFolder: "cypress/videos",
     supportFile: false, // Set supportFile to false
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    video: true,
+    // video: true,
     // any additional configurations
   },
   component: {
