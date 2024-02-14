@@ -31,9 +31,19 @@ jobs:
         run: http-server . -p 8080 &
         working-directory: ./
 
+      - name: Verify local server
+        run: |
+          echo "Verifying server at http://localhost:8080"
+          timeout 10s bash -c 'while ! curl -s -o /dev/null http://localhost:8080; do sleep 1; done'
+        working-directory: ./
+
+      - name: Check server logs
+        run: cat http-server.log
+        working-directory: ./
+
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2
         with:
           wait-on: "http://localhost:8080"
-          wait-on-timeout: 60 # seconds
+          wait-on-timeout: 120 # seconds
           config-file: cypress.config.js
