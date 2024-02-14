@@ -38,7 +38,12 @@ jobs:
         working-directory: ./
 
       - name: Check server logs
-        run: cat http-server.log
+        run: |
+          if [ -f http-server.log ]; then
+           cat http-server.log
+          else
+            echo "No log file found. Server logs may not have been generated or captured."
+          fi
         working-directory: ./
 
       - name: Run Cypress Tests
