@@ -6,7 +6,7 @@ module.exports = defineConfig({
     specPattern: "cypress/integration/**/*.cy.{js,jsx,ts,tsx}",
     screenshotsFolder: "cypress/screenshots",
     videosFolder: "cypress/videos",
-    supportFile: "cypress/support/index.js",
+    supportFile: false, // Set supportFile to false
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
