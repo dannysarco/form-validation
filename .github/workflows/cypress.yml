@@ -36,3 +36,4 @@ jobs:
         with:
           wait-on: "http://localhost:8080"
           wait-on-timeout: 60 # seconds
+          config-file: cypress.config.js
