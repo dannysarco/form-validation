@@ -4,6 +4,7 @@
   "description": "A simple HTML/JavaScript project to demonstrate Cypress testing and GitHub actions.",
   "main": "index.html",
   "scripts": {
+    "serve": "http-server -p 8000",
     "test": "cypress open"
   },
   "repository": {
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/dannysarco/form-validation#readme",
   "devDependencies": {
-    "cypress": "^13.6.4"
+    "cypress": "^13.6.4",
+    "http-server": "^14.1.1"
   }
 }
