@@ -1,5 +1,10 @@
 // cypress/support/index.js
 
+// Base URL for the application
+Cypress.env({
+  baseUrl: "http://localhost:8000",
+});
+
 // Import and register custom commands
 // import './commands';
 
