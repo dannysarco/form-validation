@@ -9,39 +9,46 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 20
+          node-version: "20.9.0"
 
-      - name: Cache dependencies
+      - name: Cache Node modules
         uses: actions/cache@v2
         with:
-          path: |
-            ~/.npm
-            ./node_modules
+          path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+      - name: Install Dependencies
+        run: npm install
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install http-server to serve the site
+        run: npm install -g http-server
 
       - name: Start local server
         run: |
-          npx http-server -p 8000 > server.log 2>&1 &
-          echo "Server running on port 8000. Logs written to server.log"
+          http-server . -p 8080 > server.log 2>&1 &
+          echo "Server started. Output will be captured in server.log"
         working-directory: ./
 
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v3
-        with:
-          build: npm run build
-          start: npx http-server ./dist -p 8000
-          wait-on: "http://localhost:8000"
+      - name: Verify local server
+        run: |
+          echo "Verifying server at http://localhost:8080"
+          timeout 10s bash -c 'while ! curl -s -o /dev/null http://localhost:8080; do sleep 1; done'
         working-directory: ./
+
+      - name: Check server logs
+        run: cat server.log
+        working-directory: ./
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v2
+        with:
+          wait-on: "http://localhost:8080"
+          wait-on-timeout: 120 # seconds
+          config-file: cypress.config.js
