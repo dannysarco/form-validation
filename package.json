@@ -1,0 +1,31 @@
+{
+  "name": "form-validation",
+  "version": "1.0.0",
+  "description": "A simple HTML/JavaScript project to demonstrate Cypress testing and GitHub actions.",
+  "main": "index.html",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dannysarco/form-validation.git"
+  },
+  "keywords": [
+    "html",
+    "css",
+    "javascript",
+    "testing",
+    "cypress",
+    "github",
+    "actions"
+  ],
+  "author": "Daniel Sarco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dannysarco/form-validation/issues"
+  },
+  "homepage": "https://github.com/dannysarco/form-validation#readme",
+  "devDependencies": {
+    "cypress": "^13.6.4"
+  }
+}
